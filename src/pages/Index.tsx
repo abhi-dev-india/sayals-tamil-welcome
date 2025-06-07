@@ -1,12 +1,141 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
-import KolamPattern from "@/components/KolamPattern";
-import ComfortFoodSelector from "@/components/ComfortFoodSelector";
-import TamilTooltip from "@/components/TamilTooltip";
+
+// Inline KolamPattern component
+const KolamPattern = ({ className = "", size = "w-16 h-16" }: { className?: string; size?: string }) => {
+  return (
+    <div className={`${size} ${className} kolam-pattern`}>
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <defs>
+          <pattern id="kolamDots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="10" r="1.5" fill="currentColor" opacity="0.6"/>
+          </pattern>
+        </defs>
+        
+        <rect width="100" height="100" fill="url(#kolamDots)" opacity="0.3"/>
+        
+        <g transform="translate(50,50)" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.8">
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+            <g key={i} transform={`rotate(${angle})`}>
+              <path d="M 0,-20 Q -8,-12 0,-8 Q 8,-12 0,-20" fill="currentColor" opacity="0.6"/>
+            </g>
+          ))}
+          
+          <circle r="8" stroke="currentColor" strokeWidth="2" fill="currentColor" opacity="0.4"/>
+          <circle r="3" fill="currentColor"/>
+        </g>
+        
+        <g stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.6">
+          <path d="M 15,15 Q 25,5 35,15 Q 25,25 15,15"/>
+          <path d="M 85,15 Q 75,5 65,15 Q 75,25 85,15"/>
+          <path d="M 15,85 Q 25,95 35,85 Q 25,75 15,85"/>
+          <path d="M 85,85 Q 75,95 65,85 Q 75,75 85,85"/>
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+// Inline TamilTooltip component
+const TamilTooltip = ({ tamilWord, translation, children }: { tamilWord: string; translation: string; children: React.ReactNode }) => {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <span className="cursor-help border-b border-dotted border-turmeric">
+            {children}
+          </span>
+        </TooltipTrigger>
+        <TooltipContent className="bg-coffee text-white border-coffee">
+          <p><strong>{tamilWord}</strong> - {translation}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
+// Inline ComfortFoodSelector component
+const ComfortFoodSelector = ({ value, onValueChange }: { value: string; onValueChange: (value: string) => void }) => {
+  const comfortFoods = [
+    {
+      value: "sambar-sadham",
+      label: "Sambar Sadham",
+      description: "Rice with lentil stew",
+      emoji: "🍚"
+    },
+    {
+      value: "chicken-chettinad",
+      label: "Chicken Chettinad",
+      description: "Spicy chicken curry from Chettinad region",
+      emoji: "🍛"
+    },
+    {
+      value: "curd-rice",
+      label: "Curd Rice",
+      description: "Yogurt mixed rice",
+      emoji: "🥛"
+    },
+    {
+      value: "rasam",
+      label: "Rasam",
+      description: "Pepper-tamarind soup",
+      emoji: "🍲"
+    },
+    {
+      value: "dosa",
+      label: "Dosa",
+      description: "Crispy rice crepe",
+      emoji: "🥞"
+    }
+  ];
+
+  return (
+    <TooltipProvider>
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-coffee flex items-center gap-2">
+          Pick your comfort food:
+          <Tooltip>
+            <TooltipTrigger>
+              <span className="text-turmeric cursor-help">ℹ️</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Choose your favorite Tamil dish to help us personalize your experience</p>
+            </TooltipContent>
+          </Tooltip>
+        </label>
+        <Select value={value} onValueChange={onValueChange}>
+          <SelectTrigger className="bg-white/80 border-banana-leaf/30 focus:border-banana-leaf hover:bg-white transition-all duration-200">
+            <SelectValue placeholder="Select your favorite dish..." />
+          </SelectTrigger>
+          <SelectContent className="bg-white border-banana-leaf/30">
+            {comfortFoods.map((food) => (
+              <SelectItem 
+                key={food.value} 
+                value={food.value}
+                className="hover:bg-banana-leaf-light/20 focus:bg-banana-leaf-light/20 cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">{food.emoji}</span>
+                  <div>
+                    <div className="font-medium text-coffee">{food.label}</div>
+                    <div className="text-xs text-muted-foreground">{food.description}</div>
+                  </div>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </TooltipProvider>
+  );
+};
 
 const Index = () => {
   const { toast } = useToast();
