@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,23 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Tamil-inspired colors
+				'banana-leaf': {
+					DEFAULT: 'hsl(var(--banana-leaf))',
+					light: 'hsl(var(--banana-leaf-light))'
+				},
+				'turmeric': {
+					DEFAULT: 'hsl(var(--turmeric))',
+					light: 'hsl(var(--turmeric-light))'
+				},
+				'coffee': {
+					DEFAULT: 'hsl(var(--coffee-brown))',
+					light: 'hsl(var(--coffee-light))'
+				},
+				'sunset': {
+					DEFAULT: 'hsl(var(--sunset-orange))',
+					light: 'hsl(var(--sunset-light))'
 				}
 			},
 			borderRadius: {
@@ -84,11 +102,40 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'kolam-glow': {
+					'0%, 100%': {
+						opacity: '0.6',
+						transform: 'scale(1)'
+					},
+					'50%': {
+						opacity: '1',
+						transform: 'scale(1.02)'
+					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
+				},
+				'gentle-pulse': {
+					'0%, 100%': {
+						opacity: '0.8'
+					},
+					'50%': {
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'kolam-glow': 'kolam-glow 3s ease-in-out infinite',
+				'float': 'float 4s ease-in-out infinite',
+				'gentle-pulse': 'gentle-pulse 2s ease-in-out infinite'
 			}
 		}
 	},
