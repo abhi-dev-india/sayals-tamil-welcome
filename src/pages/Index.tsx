@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -87,7 +86,7 @@ const Index = () => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-4 mb-4">
             <KolamPattern className="text-banana-leaf gentle-pulse" size="w-12 h-12" />
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-banana-leaf to-coffee bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-semibold bg-gradient-to-r from-banana-leaf to-coffee bg-clip-text text-transparent">
               Sayal's Kitchen
             </h1>
             <KolamPattern className="text-sunset gentle-pulse" size="w-12 h-12" />
